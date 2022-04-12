@@ -1,0 +1,121 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ashley_local?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+#      url: jdbc:mysql://10.0.2.14:3306/scutum-tamsup-btc?serverTimezone=Asia/Seoul&characterEncoding=UTF-8 #xt
+      #    url: jdbc:mysql://221.168.39.130/scutum-okex?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      #    url: jdbc:mysql://221.168.39.130/scutum-kucoin?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      #    url: jdbc:mysql://localhost/scutum-kucoin?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      #    url: jdbc:mysql://localhost/scutumHuobi?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      #    url: jdbc:mysql://221.168.39.142:3306/scutum-probit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      #    url: jdbc:mysql://221.168.36.128:3306/scutum-kucoin?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      #    url: jdbc:mysql://localhost/scutum-foblgate?serverTimezone=Asia/Seoul&characterEncoding=UTF-8 #fobl test
+      #    url: jdbc:mysql://221.168.38.142:3306/scutum-foblgate?serverTimezone=Asia/Seoul&characterEncoding=UTF-8 #fobl test
+      #    url: jdbc:mysql://221.168.37.117:3306/defencescutum?serverTimezone=Asia/Seoul&characterEncoding=UTF-8 #foblmain
+      #    url: jdbc:mysql://221.168.36.248/defence_tamsup_btc?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: 1234
+  security:
+    user:
+      name: oing
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    show-sql: false
+    generate-ddl: true
+    properties:
+      hibernate.format_sql: true
+      globally_quoted_identifiers: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  devtools:
+    restart:
+      enabled: false
+
+
+server:
+  port: 9292
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  error:
+    include-message: always
+
+
+profile:
+  certification:
+    host: localhost
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://10.0.1.11:5432/hanaroholdings?autoReconnect=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: goodman
+    password: Gmc@1234!
+    hikari:
+      maximumPoolSize: 30
+      idleTimeout: 60000
+      maxLifetime: 60000
+    dbcp2:
+      test-while-idle: true
+  jpa:
+    open-in-view: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        #        show_sql: true
+        format_sql: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  output:
+    ansi:
+      enabled: detect
+  task:
+    execution:
+      pool:
+        core-size: 200
+        max-size: 500
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  error:
+    include-message: always
+
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: logs
+  level:
+    #    org.hibernate.SQL: debug
+    #    org.hibernate.type: debug
+    com.gmc.trading.tool.flip: info
+
+profile:
+  certification:
+    host: 221.168.36.85
